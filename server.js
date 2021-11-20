@@ -1,6 +1,7 @@
 require("dotenv").config()
 const express = require("express")
 const cors = require("cors")
+const bodyParser = require("body-parser")
 const lyricsFinder = require("lyrics-finder")
 const SpotifyWebApi = require("spotify-web-api-node")
 
@@ -22,8 +23,8 @@ app.post("/refresh", (req, res) => {
     .refreshAccessToken()
     .then(data => {
       res.json({
-        accessToken: data.body.access_token,
-        expiresIn: data.body.expires_in,
+        accessToken: data.body.accessToken,
+        expiresIn: data.body.expiresIn,
       })
     })
     .catch(err => {
@@ -50,7 +51,6 @@ app.post("/login", (req, res) => {
       })
     })
     .catch(err => {
-      console.log(err)
       res.sendStatus(400)
     })
 })
